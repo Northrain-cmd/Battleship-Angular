@@ -11,10 +11,16 @@ describe('ShipsControllerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Should have arrays for GameBoards 1 and 2', () => {
-    expect(service.gameBoard1).toBeDefined();
-    expect(service.gameBoard2).toBeDefined();
+  it('Should have 2 Players and their boards', () =>  {
+    service.createPlayer('Kris');
+    expect(service.player.name).toEqual('Kris');
+    expect(service.comp.gameboard).toBeDefined();
   })
 
- 
+  it('Should populate boards on Game start', () => {
+    service.createPlayer('Kris');
+    service.startGame();
+    expect(service.player.gameboard.ships[0].ship.length).toEqual(3);
+    expect(service.comp.gameboard.ships[0].ship.length).toEqual(3);
+  })
 });

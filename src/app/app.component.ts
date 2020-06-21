@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameBoardControllerService } from './GameBoardController.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Battleship';
+  constructor(public GameController: GameBoardControllerService) {
+    GameController.createPlayer('Kris');
+    GameController.startGame();
+  }
 }

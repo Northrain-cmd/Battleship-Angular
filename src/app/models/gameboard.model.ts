@@ -2,15 +2,38 @@ import Ship from  './ship';
 
 export default class Gameboard {
     placeShip(row: number, col: number, length: number) {
-        this.ships.push(new Ship(length));
-            for(let i = col; i < col+length; i++) {
-                this.board[row][i] = 1;
+        this.ships.push(
+            {
+              ship:  new Ship(length),
+              position: {
+                  row,
+                  col
+              }
             }
-      
+                );   
     }
-    board;
-    ships: Ship[] = [];
+
+    checkShips() {
+       const stillAlive = this.ships.find(shipObject => {
+          return shipObject.ship.isSunk() === false
+        })
+        this.allSunk = stillAlive ? false : true
+    }
+
+    receiveAttack(row: number, col: number) {
+        const shipObject = this.ships.find((element) => {
+           return element.position.row === row && ( element.position.col + element.ship.length) > col
+        })
+        shipObject ? shipObject.ship.hit((col - shipObject.position.col)) : this.missedAttacks.push({
+            row,
+            col
+        }) ;
+        this.checkShips();
+    }
+    allSunk = false;
+    missedAttacks = [];
+    ships = [];
     constructor() {
-        this.board = Array(10).fill(null).map(() => Array(10).fill(0))
+        
     }
 }

@@ -1,1 +1,8 @@
-<p>gameboard works!</p>
+<div class="container">
+    <div class="row" *ngFor="let row of rows">
+        <app-board-cell class="cell"
+         [ngClass]="{ship: this.player.gameboard.ships}"
+         *ngFor="let col of rows">
+        </app-board-cell>
+    </div>
+</div>
