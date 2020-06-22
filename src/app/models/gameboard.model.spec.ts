@@ -14,6 +14,11 @@ describe('Gameboard Factory', () => {
             row:0,
             col:0
         })
+        gameboard.placeShip(0,5,3);
+        expect(gameboard.ships[1].position).toEqual({
+            row:0,
+            col:5
+        })
     })
 
     it('Can receive attacks and sunk ships,', () => {

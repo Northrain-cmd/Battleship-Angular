@@ -1,8 +1,16 @@
-<div class="container">
-    <div class="row" *ngFor="let row of rows">
+<div *ngIf="this.player" class="container">
+    <div class= "letters">
+        <ul>
+           <li *ngFor="let letter of letters">{{letter}}</li>
+        </ul>
+    </div>
+    <div  class="row" *ngFor="let row of rows; let ind = index"
+    [attr.data-index]="ind">
+        <span class="number">{{ind+1}}</span>
         <app-board-cell class="cell"
-         [ngClass]="{ship: this.player.gameboard.ships}"
-         *ngFor="let col of rows">
+         *ngFor="let col of rows; let i = index"
+         [ngClass]="{ship: this.controller.isAShip(ind, i,this.player)}"
+         [attr.data-index]="i">
         </app-board-cell>
     </div>
 </div>
