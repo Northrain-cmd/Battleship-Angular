@@ -1,12 +1,17 @@
 import Player from './player.model';
 import Computer from './computer.model';
+import { GameBoardControllerService } from '../GameBoardController.service';
 
 describe('Player factory', () => {
     let player1: Player;
     let player2: Player;
+    let service: GameBoardControllerService;
+    let computer: Computer;
     beforeEach(() => {
         player1 = new Player('Kris');
         player2 = new Player('Somebody');
+        computer = new Computer;
+        service = new GameBoardControllerService;
     })
 
     it('Creates  Players', () => {
@@ -28,6 +33,9 @@ describe('Player factory', () => {
             col: 1
         })
     })
+
+
+  
 })
  describe('Computer Player', () => {
      let comp: Computer;

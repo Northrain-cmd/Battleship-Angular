@@ -56,3 +56,11 @@ ul{
 .ship{
     background-color: green;
 }
+.wounded{
+    background-color: red !important;
+}
+.missed{
+    background-image: url("../../assets/missed.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}

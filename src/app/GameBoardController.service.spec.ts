@@ -40,4 +40,48 @@ describe('ShipsControllerService', () => {
     expect(service.isAShip(0,4,service.comp)).toBeFalse();
     expect(service.isAShip(0,5,service.comp)).toBeTrue();
   })
+
+  it('Can end turns', () => {
+    service.createPlayer('Kris');
+    service.startGame();
+    service.player.gameboard.placeShip(0,0,2);
+    service.comp.gameboard.placeShip(0,0,2);
+    service.makeTurn(0,0);
+    expect(service.turn).toEqual(1);
+  })
+
+it('Should check if a cell contains a wounded ship', () => {
+  service.createPlayer('Kris');
+  service.startGame();
+  service.makeTurn(0,5);
+  expect(service.isWounded(0,0,service.comp)).toBeFalse();
+  expect(service.isWounded(0,5,service.comp)).toBeTrue();
+})
+
+it('Should check if a shot was missed', () => {
+  service.createPlayer('Kris');
+  service.startGame();
+  service.makeTurn(0,0);
+  expect(service.isMissed(0,0,service.comp)).toBeTrue();
+  expect(service.isMissed(0,1,service.comp)).toBeFalse();
+  expect(service.isMissed(0,9,service.comp)).toBeFalse();
+})
+
+it("Tracks past turns", () => {
+  service.createPlayer('Kris');
+  service.startGame();
+  service.makeTurn(0,0);
+  expect(service.player.pastTurns[0]).toEqual({
+      row: 0,
+      col: 0
+  })
+})
+
+it("Forbids repeating turns", () => {
+  service.createPlayer('Kris');
+  service.startGame();
+  service.makeTurn(0,0);
+  service.makeTurn(0,0);
+  expect(service.player.pastTurns.length).toEqual(1);
+})
 });

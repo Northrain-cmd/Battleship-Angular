@@ -1,5 +1,4 @@
 import Gameboard from './gameboard.model';
-import Ship from './ship';
 
 describe('Gameboard Factory', () => {
     let gameboard: Gameboard;

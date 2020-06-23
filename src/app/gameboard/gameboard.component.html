@@ -1,16 +1,26 @@
 <div *ngIf="this.player" class="container">
-    <div class= "letters">
-        <ul>
-           <li *ngFor="let letter of letters">{{letter}}</li>
-        </ul>
-    </div>
-    <div  class="row" *ngFor="let row of rows; let ind = index"
-    [attr.data-index]="ind">
-        <span class="number">{{ind+1}}</span>
-        <app-board-cell class="cell"
-         *ngFor="let col of rows; let i = index"
-         [ngClass]="{ship: this.controller.isAShip(ind, i,this.player)}"
-         [attr.data-index]="i">
-        </app-board-cell>
-    </div>
+  <div class="letters">
+    <ul>
+      <li *ngFor="let letter of letters">{{ letter }}</li>
+    </ul>
+  </div>
+  <div
+    class="row"
+    *ngFor="let row of rows; let ind = index"
+    [attr.data-index]="ind"
+  >
+    <span class="number">{{ ind + 1 }}</span>
+    <app-board-cell
+      class="cell"
+      (click)="onClick(ind, i)"
+      *ngFor="let col of rows; let i = index"
+      [ngClass]="{
+        ship: this.controller.isAShip(ind, i, this.player),
+        wounded: this.controller.isWounded(ind, i, this.player),
+        missed: this.controller.isMissed(ind,i,this.player)
+      }"
+      [attr.data-index]="i"
+    >
+    </app-board-cell>
+  </div>
 </div>

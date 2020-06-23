@@ -22,7 +22,8 @@ export default class Gameboard {
 
     receiveAttack(row: number, col: number) {
         const shipObject = this.ships.find((element) => {
-           return element.position.row === row && ( element.position.col + element.ship.length) > col
+           return element.position.row === row && col < element.position.col + element.ship.length &&
+           col >= element.position.col
         })
         shipObject ? shipObject.ship.hit((col - shipObject.position.col)) : this.missedAttacks.push({
             row,

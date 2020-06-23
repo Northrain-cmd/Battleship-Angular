@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameboardComponent } from './gameboard.component';
-import Player from '../models/player.model';
 import { GameBoardControllerService } from '../GameBoardController.service';
 
 describe('GameboardComponent', () => {
@@ -43,5 +42,66 @@ describe('GameboardComponent', () => {
     expect(cell2.classList.contains("ship")).toBeTrue();
     const cell4: HTMLElement = row[0].querySelector("[data-index='3']");
     expect(cell4.classList.contains("ship")).toBeFalse();
+  })
+
+  it("Can take user clicks as input", () => {
+    service.createPlayer('Kris');
+    service.startGame();
+    component.player = service.player;
+    fixture.detectChanges();
+    const row = fixture.debugElement.nativeElement.querySelectorAll(".row");
+    const cell1: HTMLElement =  row[0].querySelector("[data-index='0']");
+    cell1.click();
+    fixture.detectChanges();
+    expect(service.turn).toEqual(1);
+    service.turn = 2;
+    cell1.click();
+    fixture.detectChanges();
+    expect(service.turn).toEqual(2);
+  })
+
+  it("Can check if a ship is wounded", () => {
+    service.createPlayer('Kris');
+    service.startGame();
+    component.player = service.comp;
+    service.turn = 1;
+    fixture.detectChanges();
+    const row = fixture.debugElement.nativeElement.querySelectorAll(".row");
+    const cell1: HTMLElement =  row[0].querySelector("[data-index='5']");
+    cell1.click();
+    fixture.detectChanges();
+    expect(cell1.classList.contains("wounded")).toBeTrue();
+    const cell2: HTMLElement =  row[0].querySelector("[data-index='8']");
+    expect(cell2.classList.contains("wounded")).toBeFalse();
+  })
+
+  it("Can check if a cell was already shot", () => {
+    service.createPlayer('Kris');
+    service.startGame();
+    component.player = service.comp;
+    fixture.detectChanges();
+    const row = fixture.debugElement.nativeElement.querySelectorAll(".row");
+    const cell1: HTMLElement =  row[0].querySelector("[data-index='9']");
+    cell1.click();
+    fixture.detectChanges();
+    expect(cell1.classList.contains("missed")).toBeTrue();
+    const cell2: HTMLElement =  row[0].querySelector("[data-index='0']");
+    cell2.click();
+    fixture.detectChanges();
+    expect(cell2.classList.contains("missed")).toBeTrue();
+    const cell3: HTMLElement =  row[0].querySelector("[data-index='1']");
+    cell3.click();
+    fixture.detectChanges();
+    expect(cell3.classList.contains("missed")).toBeTrue();
+    const cell8: HTMLElement =  row[0].querySelector("[data-index='8']");
+    cell8.click();
+    fixture.detectChanges();
+    expect(cell8.classList.contains("missed")).toBeTrue();
+    const cell0: HTMLElement =  row[1].querySelector("[data-index='0']");
+    cell0.click();
+    fixture.detectChanges();
+    expect(cell0.classList.contains("missed")).toBeTrue();
+    const cell9: HTMLElement =  row[1].querySelector("[data-index='9']");
+    expect(cell9.classList.contains("missed")).toBeFalse();
   })
 });

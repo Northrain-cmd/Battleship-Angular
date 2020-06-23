@@ -14,6 +14,12 @@ export class GameboardComponent implements OnInit {
   });
   @Input() player: Player | Computer;
   rows = Array(10);
+  onClick(row: number, col: number): void {
+    if(this.controller.turn === 1) {
+      this.controller.makeTurn(row,col)
+    }
+   else return
+  }
   constructor(public controller: GameBoardControllerService) { }
 
   ngOnInit(): void {
