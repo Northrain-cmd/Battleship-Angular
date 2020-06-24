@@ -27,13 +27,15 @@ ul{
     position: absolute;
     top:-10%;
     width: 100%;
+    user-select: none;
 
     ul{
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 }
 .number {
+    user-select: none;
     position: absolute;
     display: flex;
     text-align: center;
@@ -57,10 +59,14 @@ ul{
     background-color: green;
 }
 .wounded{
-    background-color: red !important;
+    background-color: red;
 }
 .missed{
-    background-image: url("../../assets/missed.svg");
+    background-image: url("../../assets/water.jpg");
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    border: 1px solid lightgrey;
+}
+.sunk{
+    background-color: darkslategrey !important;
 }

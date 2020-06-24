@@ -13,11 +13,12 @@ export default class Gameboard {
                 );   
     }
 
-    checkShips() {
+    checkShips(): boolean {
        const stillAlive = this.ships.find(shipObject => {
           return shipObject.ship.isSunk() === false
         })
-        this.allSunk = stillAlive ? false : true
+        this.allSunk = stillAlive ? false : true;
+        return this.allSunk;
     }
 
     receiveAttack(row: number, col: number) {

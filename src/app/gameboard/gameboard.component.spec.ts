@@ -62,7 +62,16 @@ describe('GameboardComponent', () => {
 
   it("Can check if a ship is wounded", () => {
     service.createPlayer('Kris');
-    service.startGame();
+    service.player.gameboard.placeShip(0, 0, 3);
+    service.player.gameboard.placeShip(2, 0, 3);
+    service.player.gameboard.placeShip(4, 0, 3);
+    service.player.gameboard.placeShip(6, 0, 2);
+    service.player.gameboard.placeShip(8, 0, 4);
+    service.comp.gameboard.placeShip(0, 5, 3);
+    service.comp.gameboard.placeShip(2, 5, 3);
+    service.comp.gameboard.placeShip(4, 5, 3);
+    service.comp.gameboard.placeShip(6, 5, 2);
+    service.comp.gameboard.placeShip(8, 5, 4);
     component.player = service.comp;
     service.turn = 1;
     fixture.detectChanges();
@@ -77,7 +86,16 @@ describe('GameboardComponent', () => {
 
   it("Can check if a cell was already shot", () => {
     service.createPlayer('Kris');
-    service.startGame();
+    service.player.gameboard.placeShip(0, 0, 3);
+    service.player.gameboard.placeShip(2, 0, 3);
+    service.player.gameboard.placeShip(4, 0, 3);
+    service.player.gameboard.placeShip(6, 0, 2);
+    service.player.gameboard.placeShip(8, 0, 4);
+    service.comp.gameboard.placeShip(0, 5, 3);
+    service.comp.gameboard.placeShip(2, 5, 3);
+    service.comp.gameboard.placeShip(4, 5, 3);
+    service.comp.gameboard.placeShip(6, 5, 2);
+    service.comp.gameboard.placeShip(8, 5, 4);
     component.player = service.comp;
     fixture.detectChanges();
     const row = fixture.debugElement.nativeElement.querySelectorAll(".row");

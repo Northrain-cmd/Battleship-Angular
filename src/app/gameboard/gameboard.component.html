@@ -15,9 +15,10 @@
       (click)="onClick(ind, i)"
       *ngFor="let col of rows; let i = index"
       [ngClass]="{
-        ship: this.controller.isAShip(ind, i, this.player),
+        ship: this.controller.isAShip(ind, i, this.player) && this.player === this.controller.player,
         wounded: this.controller.isWounded(ind, i, this.player),
-        missed: this.controller.isMissed(ind,i,this.player)
+        missed: this.controller.isMissed(ind,i,this.player),
+        sunk: this.controller.isSunk(ind, i, this.player)
       }"
       [attr.data-index]="i"
     >

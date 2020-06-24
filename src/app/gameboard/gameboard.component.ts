@@ -15,7 +15,7 @@ export class GameboardComponent implements OnInit {
   @Input() player: Player | Computer;
   rows = Array(10);
   onClick(row: number, col: number): void {
-    if(this.controller.turn === 1) {
+    if(this.controller.turn === 1 && this.player === this.controller.comp) {
       this.controller.makeTurn(row,col)
     }
    else return
