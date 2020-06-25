@@ -1,5 +1,6 @@
 <div class="wrapper">
     <h1>{{title}}</h1>
+    <app-ships></app-ships>
     <span *ngIf="GameController.gameOver">Game Over!<br>{{GameController.winner}} wins!</span>
     <div class="boards">
         <app-gameboard [player]="this.GameController.player"></app-gameboard>

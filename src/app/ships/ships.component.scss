@@ -1,0 +1,49 @@
+.cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba($color: #000000, $alpha: 0.3);
+    min-height: 35px;
+    min-width: 42px;
+}
+.ship{
+    background-color: green;
+}
+.carrier, .cruisers, .submarines, .destroyers{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.ship-obj{
+    display: flex;
+    flex-direction: row;
+}
+span{
+    color: white;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+.ships{
+    display: flex;
+}
+.cruisers .ship-obj,.submarines .ship-obj, .destroyers .ship-obj {
+    margin-bottom: 3%;
+}
+
+.sub-ships{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    height: 90%;
+    justify-content: space-around;
+}
+h3{
+    color: darkblue;
+    margin: 0;
+}
+.wrapper{
+    text-align: center;
+}

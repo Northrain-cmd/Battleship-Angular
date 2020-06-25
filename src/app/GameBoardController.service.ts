@@ -8,7 +8,7 @@ import Computer from './models/computer.model';
 export class GameBoardControllerService {
   player: Player;
   comp = new Computer();
-  turn = 1;
+  turn = 0;
   gameOver = false;
   winner = '';
   createPlayer(name) {
@@ -98,7 +98,11 @@ export class GameBoardControllerService {
   return ship ? ship.ship.isSunk() : false;
   }
   shipsNear(row, col, length, player: Player | Computer) {
-    const nearShip = player.gameboard.ships.find(ship => {
+    const nearShip = player.gameboard.ships.filter(ship => {
+     return  ship.position.row === row ||
+      ship.position.row === row+1 ||
+      ship.position.row === row-1 
+    }).find(ship => {
       return ship.position.col-1 === col+length -1 ||
              ship.position.col+ship.ship.length-1 === col-1 ||
              (row+1 === ship.position.row && this.spotTaken(row+1, col-1, ship.ship.length, player)) ||
@@ -126,7 +130,7 @@ export class GameBoardControllerService {
       ((randCol + length) > 10 ||
       this.spotTaken(randRow,randCol,length,player) ||
       this.shipsNear(randRow,randCol,length,player)) &&
-      i < 200
+      i < 250
 
     );
     player.gameboard.placeShip(randRow, randCol, length);
@@ -158,7 +162,7 @@ export class GameBoardControllerService {
     this.randomPlace(this.comp);
   }
   startGame() {
-    this.populateBoard();
+    //this.populateBoard();
   }
   constructor() {}
 }

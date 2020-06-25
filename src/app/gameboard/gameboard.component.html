@@ -6,6 +6,8 @@
   </div>
   <div
     class="row"
+    (drop)="onDrop($event)"
+    (dragover)="onOver($event)"
     *ngFor="let row of rows; let ind = index"
     [attr.data-index]="ind"
   >
@@ -15,7 +17,7 @@
       (click)="onClick(ind, i)"
       *ngFor="let col of rows; let i = index"
       [ngClass]="{
-        ship: this.controller.isAShip(ind, i, this.player) && this.player === this.controller.player,
+        ship: this.controller.isAShip(ind, i, this.player),
         wounded: this.controller.isWounded(ind, i, this.player),
         missed: this.controller.isMissed(ind,i,this.player),
         sunk: this.controller.isSunk(ind, i, this.player)
