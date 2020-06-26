@@ -30,20 +30,6 @@ describe('GameboardComponent', () => {
     expect(component.player).toBeDefined();
   }) 
 
-  it('Should give cells with ships a ship class', () => {
-    service.createPlayer('Kris');
-    service.startGame();
-    component.player = service.player;
-    fixture.detectChanges();
-    const row = fixture.nativeElement.querySelectorAll(".row");
-    const cell1: HTMLElement = row[0].querySelector("[data-index='0']");
-    expect(cell1.classList.contains("ship")).toBeTrue();
-    const cell2: HTMLElement = row[0].querySelector("[data-index='1']");
-    expect(cell2.classList.contains("ship")).toBeTrue();
-    const cell4: HTMLElement = row[0].querySelector("[data-index='3']");
-    expect(cell4.classList.contains("ship")).toBeFalse();
-  })
-
   it("Can take user clicks as input", () => {
     service.createPlayer('Kris');
     service.startGame();
@@ -51,6 +37,7 @@ describe('GameboardComponent', () => {
     fixture.detectChanges();
     const row = fixture.debugElement.nativeElement.querySelectorAll(".row");
     const cell1: HTMLElement =  row[0].querySelector("[data-index='0']");
+    service.turn = 1;
     cell1.click();
     fixture.detectChanges();
     expect(service.turn).toEqual(1);
@@ -100,6 +87,7 @@ describe('GameboardComponent', () => {
     fixture.detectChanges();
     const row = fixture.debugElement.nativeElement.querySelectorAll(".row");
     const cell1: HTMLElement =  row[0].querySelector("[data-index='9']");
+    service.turn = 1;
     cell1.click();
     fixture.detectChanges();
     expect(cell1.classList.contains("missed")).toBeTrue();

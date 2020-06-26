@@ -8,10 +8,19 @@ import { GameBoardControllerService } from '../GameBoardController.service';
 })
 export class ShipsComponent implements OnInit {
    initialLength: number;
+   target;
   onDrag(event) {
-    console.log(event.target.dataset.length);
-    event.dataTransfer.setData('text', event.target.dataset.length);
-    this.initialLength = this.service.player.gameboard.ships.length;
+    const handle = event.target.querySelector("i");
+    if (handle.contains(this.target)) {
+      event.dataTransfer.setData('text', event.target.dataset.length);
+      this.initialLength = this.service.player.gameboard.ships.length;
+    }  else {
+      event.preventDefault() 
+      }
+  }
+  onMouseDown(event) {
+    this.target = event.target;
+
   }
   onDragEnd(event) { 
     if (

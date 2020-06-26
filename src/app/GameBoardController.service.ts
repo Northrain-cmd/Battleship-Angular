@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Player from './models/player.model';
 import Computer from './models/computer.model';
+import Gameboard from './models/gameboard.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +54,6 @@ export class GameBoardControllerService {
         this.player.pastTurns.push({ row, col });
         this.gameOver = this.comp.gameboard.checkShips() ? true : false;
         if (this.gameOver === true) {
-          this.turn = 0;
           this.winner = this.player.name;
           console.log('Game Over');
         } else {
@@ -153,16 +153,19 @@ export class GameBoardControllerService {
     this.placeRandomly(1, player);
     this.placeRandomly(1, player);
   }
-  populateBoard() {
-    this.player.gameboard.placeShip(0, 0, 3);
-    this.player.gameboard.placeShip(2, 0, 3);
-    this.player.gameboard.placeShip(4, 0, 3);
-    this.player.gameboard.placeShip(6, 0, 2);
-    this.player.gameboard.placeShip(8, 0, 4);
+  startGame() {
     this.randomPlace(this.comp);
   }
-  startGame() {
-    //this.populateBoard();
+  reset() {
+    this.comp.gameboard = new Gameboard;
+    this.comp.pastTurns = [];
+    this.player.pastTurns = [];
+    this.player.gameboard = new Gameboard;
+    this.turn = 0;
+    this.gameOver = false;
+    this.winner = '';
+    this.randomPlace(this.comp);
   }
+ 
   constructor() {}
 }

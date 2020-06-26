@@ -29,6 +29,10 @@ export class GameboardComponent implements OnInit, DoCheck {
       col + length <= 10
     ) {
       this.controller.player.gameboard.placeShip(row, col, length);
+      if( this.controller.player.gameboard.ships.length === 10) {
+        this.controller.turn = 1
+      }
+
     }
   }
 

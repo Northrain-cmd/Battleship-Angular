@@ -20,6 +20,14 @@
 .ship-obj{
     display: flex;
     flex-direction: row;
+    position: relative;
+}
+i{
+    position: absolute;
+    color: white;
+    left: 0;
+    bottom: 0;
+    font-size: 2em;
 }
 span{
     color: white;

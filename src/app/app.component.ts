@@ -8,6 +8,9 @@ import { GameBoardControllerService } from './GameBoardController.service';
 })
 export class AppComponent {
   title = 'Battleship';
+  onReset() {
+    this.GameController.reset();
+  }
   constructor(public GameController: GameBoardControllerService) {
     GameController.createPlayer('Kris');
     GameController.startGame();

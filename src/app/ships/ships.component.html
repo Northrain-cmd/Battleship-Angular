@@ -1,64 +1,141 @@
 <div class="wrapper">
-    <h3>Place your ships on the board, Captain!</h3>
-    <div class="ships">
-        <div class="carrier">
-            <span>Carrier</span>
-            <div class="ship-obj" [attr.data-length]="4" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                <app-board-cell class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-            </div>
-        </div>
-        <div class="cruisers">
-            <span>Cruisers</span>
-            <div class="ship-obj"  [attr.data-length]="3" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                <app-board-cell class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-            </div>
-            <div class="ship-obj"  [attr.data-length]="3" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                <app-board-cell class="cell ship" ></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-            </div>
-        </div>
-        <div class="submarines">
-            <span>Submarines</span>
-            <div class="ship-obj"  [attr.data-length]="2" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                <app-board-cell class="cell ship"></app-board-cell>
-                <app-board-cell  class="cell ship"></app-board-cell>
-            </div>
-            <div class="sub-ships">
-                <div class="ship-obj"  [attr.data-length]="2" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                    <app-board-cell  class="cell ship"></app-board-cell>
-                </div>
-                <div class="ship-obj"  [attr.data-length]="2" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                    <app-board-cell  class="cell ship"></app-board-cell>
-                </div>
-            </div>
-            
-        </div>
-        <div class="destroyers">
-            <span>Destroyers</span>
-            <div class="sub-ships">
-                <div class="ship-obj"  [attr.data-length]="1" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                </div>
-                <div class="ship-obj"  [attr.data-length]="1" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                </div>
-                <div class="ship-obj"  [attr.data-length]="1" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                </div>
-                <div class="ship-obj"  [attr.data-length]="1" draggable="true" (dragend)="onDragEnd($event)" (dragstart)="onDrag($event)">
-                    <app-board-cell class="cell ship"></app-board-cell>
-                </div>
-            </div>
-          
-        </div>
+  <h3>Place your ships on the board, Captain!</h3>
+  <div class="ships">
+    <div class="carrier">
+      <span>Carrier</span>
+      <div
+        class="ship-obj"
+        [attr.data-length]="4"
+        draggable="true"
+        (mousedown)="onMouseDown($event)"
+        (dragend)="onDragEnd($event)"
+        (dragstart)="onDrag($event)"
+      >
+        <i class="fas fa-arrows-alt"></i>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+      </div>
     </div>
-   
+    <div class="cruisers">
+      <span>Cruisers</span>
+      <div
+        class="ship-obj"
+        [attr.data-length]="3"
+        draggable="true"
+        (mousedown)="onMouseDown($event)"
+        (dragend)="onDragEnd($event)"
+        (dragstart)="onDrag($event)"
+      >
+      <i class="fas fa-arrows-alt"></i>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+      </div>
+      <div
+        class="ship-obj"
+        [attr.data-length]="3"
+        draggable="true"
+        (mousedown)="onMouseDown($event)"
+        (dragend)="onDragEnd($event)"
+        (dragstart)="onDrag($event)"
+      >
+      <i class="fas fa-arrows-alt"></i>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+      </div>
+    </div>
+    <div class="submarines">
+      <span>Submarines</span>
+      <div
+        class="ship-obj"
+        [attr.data-length]="2"
+        draggable="true"
+        (mousedown)="onMouseDown($event)"
+        (dragend)="onDragEnd($event)"
+        (dragstart)="onDrag($event)"
+      >
+      <i class="fas fa-arrows-alt"></i>
+        <app-board-cell class="cell ship"></app-board-cell>
+        <app-board-cell class="cell ship"></app-board-cell>
+      </div>
+      <div class="sub-ships">
+        <div
+          class="ship-obj"
+          [attr.data-length]="2"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+        <div
+          class="ship-obj"
+          [attr.data-length]="2"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+      </div>
+    </div>
+    <div class="destroyers">
+      <span>Destroyers</span>
+      <div class="sub-ships">
+        <div
+          class="ship-obj"
+          [attr.data-length]="1"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+        <div
+          class="ship-obj"
+          [attr.data-length]="1"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+        <div
+          class="ship-obj"
+          [attr.data-length]="1"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+        <div
+          class="ship-obj"
+          [attr.data-length]="1"
+          draggable="true"
+          (mousedown)="onMouseDown($event)"
+          (dragend)="onDragEnd($event)"
+          (dragstart)="onDrag($event)"
+        >
+        <i class="fas fa-arrows-alt"></i>
+          <app-board-cell class="cell ship"></app-board-cell>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
