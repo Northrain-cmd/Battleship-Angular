@@ -20,8 +20,9 @@ describe('Player factory', () => {
     })
 
     it("Can attack enemy's gameboard", () => {
-        player1.gameboard.placeShip(0,0,2);
-        player2.gameboard.placeShip(1,0,2);
+        player1.gameboard.placeShip(0,0,2, false);
+        player1.gameboard.placeShip(2,0,2, true);
+        player2.gameboard.placeShip(1,0,2, false);
         player1.takeTurn(1,0, player2);
         expect(player2.gameboard.ships[0].ship.health[0]).toEqual(0);
         player2.takeTurn(0,0, player1);
@@ -32,6 +33,10 @@ describe('Player factory', () => {
             row: 0,
             col: 1
         })
+        player2.takeTurn(2,0, player1);
+        expect(player1.gameboard.ships[1].ship.health[0]).toEqual(0);
+        player2.takeTurn(3,0, player1);
+        expect(player1.gameboard.ships[1].ship.health[1]).toEqual(0);
     })
 
 

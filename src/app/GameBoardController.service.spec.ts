@@ -30,6 +30,7 @@ describe('ShipsControllerService', () => {
     service.player.gameboard.placeShip(4, 0, 3);
     service.player.gameboard.placeShip(6, 0, 2);
     service.player.gameboard.placeShip(8, 0, 4);
+    service.player.gameboard.placeShip(0, 5, 3, true);
     service.comp.gameboard.placeShip(0, 5, 3);
     service.comp.gameboard.placeShip(2, 5, 3);
     service.comp.gameboard.placeShip(4, 5, 3);
@@ -40,6 +41,9 @@ describe('ShipsControllerService', () => {
     expect(service.isAShip(0,2,service.player)).toBeTrue();
     expect(service.isAShip(0,8,service.player)).toBeFalse();
     expect(service.isAShip(0,9,service.player)).toBeFalse();
+    expect(service.isAShip(0,5,service.player)).toBeTrue();
+    expect(service.isAShip(1,5,service.player)).toBeTrue();
+    expect(service.isAShip(2,5,service.player)).toBeTrue();
     expect(service.isAShip(1,0,service.comp)).toBeFalse();
     expect(service.isAShip(0,0,service.comp)).toBeFalse();
     expect(service.isAShip(0,1,service.comp)).toBeFalse();
@@ -71,10 +75,19 @@ it('Should check if a cell contains a wounded ship', () => {
   service.comp.gameboard.placeShip(4, 5, 3);
   service.comp.gameboard.placeShip(6, 5, 2);
   service.comp.gameboard.placeShip(8, 5, 4);
+  service.comp.gameboard.placeShip(0, 0, 3, true);
   service.turn = 1;
   service.makeTurn(0,5);
   expect(service.isWounded(0,0,service.comp)).toBeFalse();
   expect(service.isWounded(0,5,service.comp)).toBeTrue();
+  service.makeTurn(0,0);
+  expect(service.isWounded(0,0,service.comp)).toBeTrue();
+  expect(service.isWounded(1,0,service.comp)).toBeFalse();
+  service.makeTurn(1,0);
+  expect(service.isWounded(1,0,service.comp)).toBeTrue();
+  expect(service.isWounded(2,0,service.comp)).toBeFalse();
+  service.makeTurn(2,0);
+  expect(service.isWounded(2,0,service.comp)).toBeTrue();
 })
 
 it('Should check if a shot was missed', () => {

@@ -30,14 +30,29 @@ export class GameBoardControllerService {
       })
     );
     const ship = positions.find(
-      (position) =>
-        position.row === row &&
-        col < position.col + position.length &&
-        col >= position.col
+      (position) => {
+        if(position.vertical === true) {
+          return (
+            position.col === col &&
+            row < position.row + position.length &&
+            row >= position.row
+          )
+        }  else {
+          return (
+            position.row === row &&
+            col < position.col + position.length &&
+            col >= position.col
+          )
+        }
+      }
     );
     let notWounded = true;
     if (ship) {
-      notWounded = !!ship.health[col - ship.col] ? true : false;
+      if (ship.vertical === true) {
+        notWounded = !!ship.health[row - ship.row] ? true : false;
+      }  else {
+        notWounded = !!ship.health[col - ship.col] ? true : false;
+      }
     }
     return notWounded ? false : true;
   }
@@ -78,10 +93,23 @@ export class GameBoardControllerService {
       Object.assign(shipObj.position, { length: shipObj.ship.length })
     );
     const isShip = positions.find(
-      (position) =>
-        position.row === row &&
-        col < position.col + position.length &&
-        col >= position.col
+      (position) => {
+        if(position.vertical === true) {
+          return (
+            position.col === col &&
+            row < position.row + position.length &&
+            row >= position.row
+          )
+        }  else {
+          return (
+            position.row === row &&
+            col < position.col + position.length &&
+            col >= position.col
+          )
+        }
+        
+      }
+       
     );
     return isShip ? true : false;
   }
@@ -90,10 +118,21 @@ export class GameBoardControllerService {
     Object.assign(shipObj.position, { ship: shipObj.ship })
   );
   const ship = positions.find(
-    (position) =>
-      position.row === row &&
-      col < position.col + position.length &&
-      col >= position.col
+    (position) => {
+      if(position.vertical === true) {
+        return (
+          position.col === col &&
+          row < position.row + position.length &&
+          row >= position.row
+        )
+      }  else {
+        return (
+          position.row === row &&
+          col < position.col + position.length &&
+          col >= position.col
+        )
+      }
+    }
   );
   return ship ? ship.ship.isSunk() : false;
   }
@@ -122,20 +161,22 @@ export class GameBoardControllerService {
   placeRandomly(length: number, player: Player | Computer) {
     let randCol: number;
     let randRow: number;
+    let randOrientation: number;
     let i = 0;
     do {
       randNumbers();
       i++;
     } while (
       ((randCol + length) > 10 ||
+      randRow + length  > 10 ||
       this.spotTaken(randRow,randCol,length,player) ||
       this.shipsNear(randRow,randCol,length,player)) &&
       i < 250
 
     );
-    player.gameboard.placeShip(randRow, randCol, length);
+    player.gameboard.placeShip(randRow, randCol, length, !!randOrientation);
     function randNumbers() {
-
+      randOrientation = Math.round(Math.random());
       randRow = Math.floor(Math.random() * 10);
       randCol = Math.floor(Math.random() * 10);
     }
@@ -155,6 +196,14 @@ export class GameBoardControllerService {
   }
   startGame() {
     this.randomPlace(this.comp);
+    // Tests, remove later
+    this.player.gameboard.placeShip(0,6,3,true);
+    this.player.gameboard.placeShip(0,4,3,true);
+    this.player.gameboard.placeShip(0,2,3,true)
+    this.player.gameboard.placeShip(6,6,3,true);
+    this.player.gameboard.placeShip(6,4,3,true);
+    this.player.gameboard.placeShip(6,2,3,true)
+    this.turn = 1;
   }
   reset() {
     this.comp.gameboard = new Gameboard;
