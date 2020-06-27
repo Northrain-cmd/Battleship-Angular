@@ -12,6 +12,7 @@ export class GameBoardControllerService {
   turn = 0;
   gameOver = false;
   winner = '';
+  invalidCoords = [];
   createPlayer(name) {
     this.player = new Player(name);
   }
@@ -29,28 +30,26 @@ export class GameBoardControllerService {
         health: shipObj.ship.health,
       })
     );
-    const ship = positions.find(
-      (position) => {
-        if(position.vertical === true) {
-          return (
-            position.col === col &&
-            row < position.row + position.length &&
-            row >= position.row
-          )
-        }  else {
-          return (
-            position.row === row &&
-            col < position.col + position.length &&
-            col >= position.col
-          )
-        }
+    const ship = positions.find((position) => {
+      if (position.vertical === true) {
+        return (
+          position.col === col &&
+          row < position.row + position.length &&
+          row >= position.row
+        );
+      } else {
+        return (
+          position.row === row &&
+          col < position.col + position.length &&
+          col >= position.col
+        );
       }
-    );
+    });
     let notWounded = true;
     if (ship) {
       if (ship.vertical === true) {
         notWounded = !!ship.health[row - ship.row] ? true : false;
-      }  else {
+      } else {
         notWounded = !!ship.health[col - ship.col] ? true : false;
       }
     }
@@ -92,72 +91,45 @@ export class GameBoardControllerService {
     const positions = pl.gameboard.ships.map((shipObj) =>
       Object.assign(shipObj.position, { length: shipObj.ship.length })
     );
-    const isShip = positions.find(
-      (position) => {
-        if(position.vertical === true) {
-          return (
-            position.col === col &&
-            row < position.row + position.length &&
-            row >= position.row
-          )
-        }  else {
-          return (
-            position.row === row &&
-            col < position.col + position.length &&
-            col >= position.col
-          )
-        }
-        
-      }
-       
-    );
-    return isShip ? true : false;
-  }
-  isSunk(row: number, col: number, pl: Player | Computer) {
-    const positions = pl.gameboard.ships.map((shipObj) =>
-    Object.assign(shipObj.position, { ship: shipObj.ship })
-  );
-  const ship = positions.find(
-    (position) => {
-      if(position.vertical === true) {
+    const isShip = positions.find((position) => {
+      if (position.vertical === true) {
         return (
           position.col === col &&
           row < position.row + position.length &&
           row >= position.row
-        )
-      }  else {
+        );
+      } else {
         return (
           position.row === row &&
           col < position.col + position.length &&
           col >= position.col
-        )
+        );
       }
-    }
-  );
-  return ship ? ship.ship.isSunk() : false;
+    });
+    return isShip ? true : false;
   }
-  shipsNear(row, col, length, player: Player | Computer) {
-    const nearShip = player.gameboard.ships.filter(ship => {
-     return  ship.position.row === row ||
-      ship.position.row === row+1 ||
-      ship.position.row === row-1 
-    }).find(ship => {
-      return ship.position.col-1 === col+length -1 ||
-             ship.position.col+ship.ship.length-1 === col-1 ||
-             (row+1 === ship.position.row && this.spotTaken(row+1, col-1, ship.ship.length, player)) ||
-             (row-1 === ship.position.row && this.spotTaken(row-1, col-1, ship.ship.length, player))
-    })
-    return nearShip ? true : false 
+  isSunk(row: number, col: number, pl: Player | Computer) {
+    const positions = pl.gameboard.ships.map((shipObj) =>
+      Object.assign(shipObj.position, { ship: shipObj.ship })
+    );
+    const ship = positions.find((position) => {
+      if (position.vertical === true) {
+        return (
+          position.col === col &&
+          row < position.row + position.length &&
+          row >= position.row
+        );
+      } else {
+        return (
+          position.row === row &&
+          col < position.col + position.length &&
+          col >= position.col
+        );
+      }
+    });
+    return ship ? ship.ship.isSunk() : false;
   }
-  spotTaken(row, col, length, player: Player | Computer) {
-    const ships = [];
-   for(let i = col; i< col+length; i++) {
-    let isShip = this.isAShip(row,i, player);
-    ships.push(isShip);
-   }
-   return ships.includes(true) ? true : false
 
-  }
   placeRandomly(length: number, player: Player | Computer) {
     let randCol: number;
     let randRow: number;
@@ -166,15 +138,80 @@ export class GameBoardControllerService {
     do {
       randNumbers();
       i++;
+      console.log(this.invalidCoords);
     } while (
-      ((randCol + length) > 10 ||
-      randRow + length  > 10 ||
-      this.spotTaken(randRow,randCol,length,player) ||
-      this.shipsNear(randRow,randCol,length,player)) &&
-      i < 250
-
+      randCol + length > 10 ||
+      randRow + length > 10 ||
+      this.invalidCoords.find(
+        (pos) =>
+          (pos.row === randRow && pos.col === randCol) ||
+          (pos.row === randRow && pos.col === randCol + length-1)||
+          (pos.col === randCol && pos.row === randRow + length-1) 
+      ) !== undefined ||
+      i <= 250
     );
     player.gameboard.placeShip(randRow, randCol, length, !!randOrientation);
+    let ship = player.gameboard.ships[player.gameboard.ships.length - 1];
+    if (ship.position.vertical === true) {
+      this.invalidCoords.push({
+        row: randRow + length,
+        col: randCol,
+      });
+      this.invalidCoords.push({
+        row: randRow - 1,
+        col: randCol,
+      });
+      for (let i = randRow; i < randRow + length; i++) {
+        this.invalidCoords.push({
+          row: i,
+          col: randCol,
+        });
+      }
+      for (let i = randRow; i < randRow + length; i++) {
+        this.invalidCoords.push({
+          row: i,
+          col: randCol - 1,
+        });
+      }
+      for (let i = randRow; i < randRow + length; i++) {
+        this.invalidCoords.push({
+          row: i,
+          col: randCol + 1,
+        });
+      }
+    } else {
+      this.invalidCoords.push({
+        row: randRow,
+        col: randCol + length,
+      });
+      this.invalidCoords.push({
+        row: randRow+1,
+        col: randCol + length,
+      });
+      this.invalidCoords.push({
+        row: randRow,
+        col: randCol - 1,
+      });
+      for (let i = randCol; i < randCol + length; i++) {
+        this.invalidCoords.push({
+          row: randRow,
+          col: i,
+        });
+      }
+      for (let i = randCol; i < randCol + length; i++) {
+        this.invalidCoords.push({
+          row: randRow - 1,
+          col: i,
+        });
+      }
+      for (let i = randCol; i < randCol + length; i++) {
+        this.invalidCoords.push({
+          row: randRow + 1,
+          col: i,
+        });
+      }
+    }
+
     function randNumbers() {
       randOrientation = Math.round(Math.random());
       randRow = Math.floor(Math.random() * 10);
@@ -193,28 +230,29 @@ export class GameBoardControllerService {
     this.placeRandomly(1, player);
     this.placeRandomly(1, player);
     this.placeRandomly(1, player);
+    console.log(this.comp.gameboard.ships);
   }
   startGame() {
     this.randomPlace(this.comp);
     // Tests, remove later
-    this.player.gameboard.placeShip(0,6,3,true);
-    this.player.gameboard.placeShip(0,4,3,true);
-    this.player.gameboard.placeShip(0,2,3,true)
-    this.player.gameboard.placeShip(6,6,3,true);
-    this.player.gameboard.placeShip(6,4,3,true);
-    this.player.gameboard.placeShip(6,2,3,true)
+    this.player.gameboard.placeShip(0, 6, 3, true);
+    this.player.gameboard.placeShip(0, 4, 3, true);
+    this.player.gameboard.placeShip(0, 2, 3, true);
+    this.player.gameboard.placeShip(6, 6, 3, true);
+    this.player.gameboard.placeShip(6, 4, 3, true);
+    this.player.gameboard.placeShip(6, 2, 3, true);
     this.turn = 1;
   }
   reset() {
-    this.comp.gameboard = new Gameboard;
+    this.comp.gameboard = new Gameboard();
     this.comp.pastTurns = [];
     this.player.pastTurns = [];
-    this.player.gameboard = new Gameboard;
+    this.player.gameboard = new Gameboard();
     this.turn = 0;
     this.gameOver = false;
     this.winner = '';
     this.randomPlace(this.comp);
   }
- 
+
   constructor() {}
 }

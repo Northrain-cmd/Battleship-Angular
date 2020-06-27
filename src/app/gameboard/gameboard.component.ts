@@ -24,8 +24,6 @@ export class GameboardComponent implements OnInit, DoCheck {
     let length: number = +event.dataTransfer.getData('text');
     if (
       ! this.controller.isAShip(row, col, this.player) &&
-      ! this.controller.shipsNear(row, col, length, this.player) &&
-      ! this.controller.spotTaken(row, col,length,this.player) &&
       col + length <= 10
     ) {
       this.controller.player.gameboard.placeShip(row, col, length);
