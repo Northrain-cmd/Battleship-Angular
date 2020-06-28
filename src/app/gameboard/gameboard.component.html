@@ -14,7 +14,7 @@
     <span class="number">{{ ind + 1 }}</span>
     <app-board-cell
       class="cell"
-      (click)="onClick(ind, i)"
+      (click)="onClick(ind, i, $event)"
       *ngFor="let col of rows; let i = index"
       [ngClass]="{
         ship: this.controller.isAShip(ind, i, this.player),

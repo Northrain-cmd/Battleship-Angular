@@ -1,10 +1,11 @@
 import { GameBoardControllerService } from './GameBoardController.service';
+import { PlaceOnClickService } from './place-on-click.service';
 
 describe('ShipsControllerService', () => {
   let service: GameBoardControllerService;
 
   beforeEach(() => {
-    service = new GameBoardControllerService;
+    service = new GameBoardControllerService();
   });
 
   it('should be created', () => {

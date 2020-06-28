@@ -282,5 +282,7 @@ export class GameBoardControllerService {
     
   }
 
-  constructor() {}
+  constructor() {
+
+  }
 }

@@ -10,6 +10,7 @@ export class AppComponent {
   vertical = false;
   title = 'Battleship';
   onReset() {
+    this.vertical = false;
     this.GameController.reset();
   }
   onRotate(data) {

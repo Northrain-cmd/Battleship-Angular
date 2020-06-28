@@ -1,6 +1,6 @@
 <div class="wrapper">
     <h1>{{title}}</h1>
-    <app-ships (vertical)="onRotate($event)" *ngIf="this.GameController.turn === 0"></app-ships>
+    <app-ships  (vertical)="onRotate($event)" *ngIf="this.GameController.turn === 0"></app-ships>
     <span *ngIf="GameController.gameOver">Game Over!<br>{{GameController.winner}} wins!</span>
     <div class="boards">
         <app-gameboard [ngClass]="{highlight: this.GameController.turn === 0}"  [vertical]="this.vertical" [player]="this.GameController.player"></app-gameboard>

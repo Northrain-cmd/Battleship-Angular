@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { GameBoardControllerService } from '../GameBoardController.service';
 import { EventEmitter } from '@angular/core';
+import { PlaceOnClickService } from '../place-on-click.service';
 
 @Component({
   selector: 'app-ships',
@@ -34,11 +35,23 @@ export class ShipsComponent implements OnInit {
       event.target.parentElement.removeChild(event.target);
     }
   }
+  onClick(event) {
+    console.log( event.target.parentElement,event.target)
+    event.target.parentElement.querySelectorAll('.cell').forEach(cell => {
+      cell.classList.toggle('selected');
+    })
+    const curValue = this.clickService.readyToPlace.getValue();
+    this.clickService.readyToPlace.next({
+      ready: ! curValue.ready,
+      length: + event.target.parentElement.dataset.length,
+      parentElement: event.target.parentElement,
+    })
+  }
   onRotate() {
     this._vertical = ! this._vertical;
     this.vertical.emit(this._vertical);
   }
-  constructor(private service: GameBoardControllerService) {}
+  constructor(private service: GameBoardControllerService, private clickService: PlaceOnClickService) {}
 
   ngOnInit(): void {}
 }

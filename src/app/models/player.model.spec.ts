@@ -1,6 +1,7 @@
 import Player from './player.model';
 import Computer from './computer.model';
 import { GameBoardControllerService } from '../GameBoardController.service';
+import { PlaceOnClickService } from '../place-on-click.service';
 
 describe('Player factory', () => {
     let player1: Player;
@@ -11,7 +12,7 @@ describe('Player factory', () => {
         player1 = new Player('Kris');
         player2 = new Player('Somebody');
         computer = new Computer;
-        service = new GameBoardControllerService;
+        service = new GameBoardControllerService();
     })
 
     it('Creates  Players', () => {
