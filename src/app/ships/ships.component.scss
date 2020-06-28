@@ -1,3 +1,7 @@
+.wrapper{
+    margin-top: 0.5%;
+    margin-bottom: 1%;
+}
 .cell{
     display: flex;
     justify-content: center;
@@ -5,6 +9,12 @@
     border: 1px solid rgba($color: #000000, $alpha: 0.3);
     min-height: 35px;
     min-width: 42px;
+}
+#rotate{
+    font-size: 1.5em;
+    color: white;
+    margin-top: 0.7%;
+    margin-bottom: 1%;
 }
 .ship{
     background-color: green;
@@ -16,23 +26,19 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
+
+    i{
+        position: absolute;
+        color: white;
+        left: 0;
+        bottom: 0;
+        font-size: 1em;
+    }
 }
 .ship-obj{
     display: flex;
     flex-direction: row;
     position: relative;
-}
-i{
-    position: absolute;
-    color: white;
-    left: 0;
-    bottom: 0;
-    font-size: 2em;
-}
-span{
-    color: white;
-    margin-bottom: 1%;
-    margin-top: 1%;
 }
 .ships{
     display: flex;
@@ -54,4 +60,39 @@ h3{
 }
 .wrapper{
     text-align: center;
+}
+.vertical {
+    .carrier, .cruisers, .submarines{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        i{
+            position: absolute;
+            color: white;
+            left: 0;
+            top: 0;
+            font-size: 1em;
+        }
+    }
+    .ship-obj{
+        flex-direction: column;
+        margin: 0 auto;
+    }
+    .sub-ships{
+        justify-content: space-between;
+        width: 65%;
+    }
+    .destroyers{
+        .ship-obj{
+            margin-right: 3%;
+        }
+        justify-content: space-around;
+        i{
+            position: absolute;
+            color: white;
+            left: 0;
+            top: 0;
+            font-size: 1em;
+        }
+    }
 }

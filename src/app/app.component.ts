@@ -7,9 +7,13 @@ import { GameBoardControllerService } from './GameBoardController.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  vertical = false;
   title = 'Battleship';
   onReset() {
     this.GameController.reset();
+  }
+  onRotate(data) {
+    this.vertical = data;
   }
   constructor(public GameController: GameBoardControllerService) {
     GameController.createPlayer('Kris');

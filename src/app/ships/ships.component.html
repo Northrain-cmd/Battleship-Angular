@@ -1,8 +1,8 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{vertical: this._vertical}">
   <h3>Place your ships on the board, Captain!</h3>
+  <i (click)="onRotate()" id="rotate" class="fas fa-undo"></i>
   <div class="ships">
     <div class="carrier">
-      <span>Carrier</span>
       <div
         class="ship-obj"
         [attr.data-length]="4"
@@ -19,7 +19,6 @@
       </div>
     </div>
     <div class="cruisers">
-      <span>Cruisers</span>
       <div
         class="ship-obj"
         [attr.data-length]="3"
@@ -48,7 +47,6 @@
       </div>
     </div>
     <div class="submarines">
-      <span>Submarines</span>
       <div
         class="ship-obj"
         [attr.data-length]="2"
@@ -89,7 +87,6 @@
       </div>
     </div>
     <div class="destroyers">
-      <span>Destroyers</span>
       <div class="sub-ships">
         <div
           class="ship-obj"
