@@ -277,6 +277,7 @@ export class GameBoardControllerService {
     this.gameOver = false;
     this.winner = '';
     this.comp.invalidCoords = [];
+    this.player.invalidCoords = [];
     this.randomPlace(this.comp);
     
   }
