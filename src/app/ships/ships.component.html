@@ -1,6 +1,8 @@
 <div class="wrapper" [ngClass]="{vertical: this._vertical}">
   <h3>Place your ships on the board, Captain!</h3>
   <i (click)="onRotate()" id="rotate" class="fas fa-undo"></i>
+  <button (click)="startGame()" [disabled]="this.service.player.gameboard.ships.length !== 10" class="start">Start</button>
+  <i id="dice" (click)="onRandom()" class="fas fa-dice"></i>
   <div class="ships">
     <div class="carrier">
       <div

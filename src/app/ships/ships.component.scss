@@ -1,14 +1,48 @@
 .wrapper{
     margin-top: 0.5%;
     margin-bottom: 1%;
+    min-height: 34.5vh;
+   
+}
+.ships{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 4px;
 }
 .cell{
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba($color: #000000, $alpha: 0.3);
-    min-height: 35px;
-    min-width: 42px;
+    min-height: 31px;
+    min-width: 40px;
+}
+.start{
+    user-select: none;
+    color: white;
+    padding: 0.5% 3%;
+    background-color: blue;
+    border: none;
+    font-size: 1.2em;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    transition: background .3s ease-in-out;
+
+    &:hover{
+        background-color: darkblue;
+    }
+}
+.start[disabled] {
+    background-color: darkgrey;
+}
+#dice{
+    font-size: 1.5em;
+    color: white;
+    margin-top: 0.7%;
+    margin-bottom: 1%;
+    margin-left: 5%;
 }
 #rotate{
     font-size: 1.5em;
@@ -17,15 +51,16 @@
     margin-bottom: 1%;
 }
 .ship{
-    background-color: green;
+    background-color:green;
 }
 .carrier, .cruisers, .submarines, .destroyers{
-    width: 25%;
+    flex: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    justify-content: center;
 
     i{
         position: absolute;
@@ -58,7 +93,7 @@
     justify-content: space-around;
 }
 h3{
-    color: darkblue;
+    color: blue;
     margin: 0;
 }
 .wrapper{
@@ -67,6 +102,7 @@ h3{
 .vertical {
     .carrier, .cruisers, .submarines{
         flex-direction: row;
+        height: 100%;;
         justify-content: center;
         align-items: center;
         i{
@@ -82,10 +118,11 @@ h3{
         margin: 0 auto;
     }
     .sub-ships{
-        justify-content: space-between;
+        justify-content: space-around;
         width: 65%;
     }
     .destroyers{
+        height: 100%;
         .ship-obj{
             margin-right: 3%;
         }

@@ -32,17 +32,24 @@ export class ShipsComponent implements OnInit {
       event.dataTransfer.dropEffect !== 'none' &&
       this.initialLength !== this.service.player.gameboard.ships.length
     ) {
+      if( event.target.parentElement.childNodes.length - 1 === 0) {
+        event.target.parentElement.parentElement.removeChild(event.target.parentElement)
+      }
       event.target.parentElement.removeChild(event.target);
     }
   }
   onClick(event) {
-    console.log( event.target.parentElement,event.target)
-    event.target.parentElement.querySelectorAll('.cell').forEach(cell => {
-      cell.classList.toggle('selected');
+    event.target.parentElement.parentElement.parentElement.parentElement.querySelectorAll('.ship-obj').forEach(ship => {
+      ship.querySelectorAll('.cell').forEach(cell => {
+        cell.classList.remove('selected');
+      }) 
     })
-    const curValue = this.clickService.readyToPlace.getValue();
+    
+    event.target.parentElement.querySelectorAll('.cell').forEach(cell => {
+      cell.classList.add('selected');
+    })
     this.clickService.readyToPlace.next({
-      ready: ! curValue.ready,
+      ready: true,
       length: + event.target.parentElement.dataset.length,
       parentElement: event.target.parentElement,
     })
@@ -51,7 +58,17 @@ export class ShipsComponent implements OnInit {
     this._vertical = ! this._vertical;
     this.vertical.emit(this._vertical);
   }
-  constructor(private service: GameBoardControllerService, private clickService: PlaceOnClickService) {}
+  onRandom() {
+    if(this.service.player.gameboard.ships.length !== 0) {
+      this.service.player.gameboard.ships = [];
+      this.service.player.invalidCoords = [];
+    }
+    this.service.randomPlace(this.service.player);
+  }
+  startGame() {
+    this.service.turn = 1;
+  }
+  constructor(public service: GameBoardControllerService, private clickService: PlaceOnClickService) {}
 
   ngOnInit(): void {}
 }

@@ -69,6 +69,7 @@ export class GameBoardControllerService {
         this.gameOver = this.comp.gameboard.checkShips() ? true : false;
         if (this.gameOver === true) {
           this.winner = this.player.name;
+          this.turn = 4;
           console.log('Game Over');
         } else {
           this.turn = 2;
@@ -79,7 +80,7 @@ export class GameBoardControllerService {
       this.comp.makeLegalMove(this.player);
       this.gameOver = this.player.gameboard.checkShips() ? true : false;
       if (this.gameOver === true) {
-        this.turn = 0;
+        this.turn = 4;
         this.winner = this.comp.name;
         console.log('Game Over');
       } else {
@@ -234,7 +235,7 @@ export class GameBoardControllerService {
     } while (
       randCol + length > 10 ||
       randRow + length > 10 ||
-      this.comp.invalidCoords.find(
+      player.invalidCoords.find(
         (pos) =>
           (pos.row === randRow && pos.col === randCol) ||
           (pos.row === randRow && pos.col === randCol + length-1)||
@@ -244,7 +245,7 @@ export class GameBoardControllerService {
     );
     player.gameboard.placeShip(randRow, randCol, length, !!randOrientation);
     let ship = player.gameboard.ships[player.gameboard.ships.length - 1];
-    this.addInvalidSpots(randRow, randCol, length, ship.position.vertical, this.comp);
+    this.addInvalidSpots(randRow, randCol, length, ship.position.vertical, player);
     function randNumbers() {
       randOrientation = Math.round(Math.random());
       randRow = Math.floor(Math.random() * 10);

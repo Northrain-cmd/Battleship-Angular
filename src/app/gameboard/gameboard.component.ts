@@ -41,21 +41,10 @@ export class GameboardComponent implements OnInit, DoCheck {
         length,
         this.vertical
       );
-      this.controller.addInvalidSpots(
-        row,
-        col,
-        length,
-        this.vertical,
-        this.player
-      );
-      if (this.controller.player.gameboard.ships.length === 10) {
-        this.controller.turn = 1;
-      }
     }
   }
 
   onClick(row: number, col: number, event): void {
-    console.log(this.placeOnClick)
     if (this.controller.turn === 1 && this.player === this.controller.comp) {
       this.controller.makeTurn(row, col);
     } else if (
@@ -81,22 +70,12 @@ export class GameboardComponent implements OnInit, DoCheck {
             length,
             this.vertical
           );
-          this.controller.addInvalidSpots(
-            row,
-            col,
-            length,
-            this.vertical,
-            this.player
-          );
           this.placeOnClick.parentElement.parentElement.removeChild( this.placeOnClick.parentElement);
           this.clickService.readyToPlace.next({
             length: 0,
             ready: false,
             parentElement: undefined,
           })
-          if (this.controller.player.gameboard.ships.length === 10) {
-            this.controller.turn = 1;
-          }
     }
     } 
     else return;
