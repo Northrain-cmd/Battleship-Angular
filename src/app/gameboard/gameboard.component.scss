@@ -71,3 +71,38 @@ ul{
 .sunk{
     background-color: darkslategrey !important;
 }
+@media only screen and (max-width:970px) {
+    .cell{
+        min-height: 40px;
+        min-width: 40px;
+    }
+}
+@media only screen and (max-width:700px) {
+    .cell{
+        min-height: 35px;
+        min-width: 35px;
+    }
+    .row{
+        &:last-child span {
+            left: -8%;
+        }
+    }
+}
+@media only screen and (max-width:699px) {
+    .cell{
+        min-height: 30px;
+        min-width: 30px;
+    }
+}
+@media only screen and (max-width:359px) {
+    .cell{
+        min-height: 26px;
+        min-width: 26px;
+    }
+    .letters{
+        position: absolute;
+        top:-14%;
+        width: 100%;
+        user-select: none;
+    }
+}

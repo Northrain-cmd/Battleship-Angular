@@ -17,7 +17,7 @@ export class AppComponent {
     this.vertical = data;
   }
   constructor(public GameController: GameBoardControllerService) {
-    GameController.createPlayer('Kris');
+    GameController.createPlayer('Player');
     GameController.startGame();
   }
 }

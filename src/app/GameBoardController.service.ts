@@ -12,7 +12,6 @@ export class GameBoardControllerService {
   turn = 0;
   gameOver = false;
   winner = '';
-  invalidCoords = [];
   createPlayer(name) {
     this.player = new Player(name);
   }
@@ -278,7 +277,6 @@ export class GameBoardControllerService {
     this.gameOver = false;
     this.winner = '';
     this.comp.invalidCoords = [];
-    this.player.invalidCoords = [];
     this.randomPlace(this.comp);
     
   }

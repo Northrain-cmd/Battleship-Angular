@@ -3,7 +3,7 @@
   <i (click)="onRotate()" id="rotate" class="fas fa-undo"></i>
   <button (click)="startGame()" [disabled]="this.service.player.gameboard.ships.length !== 10" class="start">Start</button>
   <i id="dice" (click)="onRandom()" class="fas fa-dice"></i>
-  <div class="ships">
+  <div class="ships" *ngIf="this.service.player.gameboard.ships.length !== 10">
     <div class="carrier">
       <div
         class="ship-obj"

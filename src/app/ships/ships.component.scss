@@ -55,7 +55,6 @@
 }
 .carrier, .cruisers, .submarines, .destroyers{
     flex: 1;
-    height: 100%;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -81,7 +80,7 @@
 .ships{
     display: flex;
 }
-.cruisers .ship-obj,.submarines .ship-obj, .destroyers .ship-obj {
+.carrier .ship-obj, .cruisers .ship-obj,.submarines .ship-obj, .destroyers .ship-obj {
     margin-bottom: 3%;
 }
 
@@ -134,5 +133,34 @@ h3{
             top: 0;
             font-size: 1em;
         }
+    }
+}
+@media only screen and (max-width:1100px) {
+    .ships{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .carrier .ship-obj, .cruisers .ship-obj,.submarines .ship-obj, .destroyers .ship-obj {
+        margin-bottom: 5%;
+    }
+    .start{
+        font-size: 1.7em;
+        margin-top: 2%;
+        padding: 2% 3%;
+        margin-left: 10%;
+        margin-bottom: 1%;
+    }
+    #dice{
+        font-size: 1.7em;
+        color: white;
+        margin-top: 0.7%;
+        margin-bottom: 1%;
+        margin-left: 10%;
+    }
+    #rotate{
+        font-size: 1.7em;
+        color: white;
+        margin-top: 0.7%;
+        margin-bottom: 1%;
     }
 }
