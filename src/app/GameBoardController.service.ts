@@ -129,100 +129,7 @@ export class GameBoardControllerService {
     });
     return ship ? ship.ship.isSunk() : false;
   }
-  addInvalidSpots(row: number, col: number, length: number, vertical: boolean, player: Player | Computer) {
-    if (vertical === true) {
-      player.invalidCoords.push({
-        row: row + length,
-        col: col,
-      });
-     player.invalidCoords.push({
-        row: row - 1,
-        col: col,
-      });
-      player.invalidCoords.push({
-        row: row - 1,
-        col: col - 1,
-      });
-     player.invalidCoords.push({
-        row: row - 1,
-        col: col + 1,
-      });
-      player.invalidCoords.push({
-        row: row + length,
-        col: col - 1,
-      });
-     player.invalidCoords.push({
-        row: row + length,
-        col: col + 1,
-      });
-      for (let i = row; i < row + length; i++) {
-       player.invalidCoords.push({
-          row: i,
-          col: col,
-        });
-      }
-      for (let i = row; i < row + length; i++) {
-       player.invalidCoords.push({
-          row: i,
-          col: col - 1,
-        });
-      }
-      for (let i = row; i < row + length; i++) {
-       player.invalidCoords.push({
-          row: i,
-          col: col + 1,
-        });
-      }
-    } else {
-      player.invalidCoords.push({
-        row: row,
-        col: col + length,
-      });
-      player.invalidCoords.push({
-        row: row+1,
-        col: col + length,
-      });
-      player.invalidCoords.push({
-        row: row,
-        col: col - 1,
-      });
-     player.invalidCoords.push({
-        row: row - 1,
-        col: col - 1,
-      });
-     player.invalidCoords.push({
-        row: row + 1,
-        col: col - 1,
-      });
-      player.invalidCoords.push({
-        row: row - 1,
-        col: col + length,
-      });
-     player.invalidCoords.push({
-        row: row + 1,
-        col: col + length,
-      });
-      for (let i = col; i < col + length; i++) {
-       player.invalidCoords.push({
-          row: row,
-          col: i,
-        });
-      }
-      for (let i = col; i < col + length; i++) {
-        player.invalidCoords.push({
-          row: row - 1,
-          col: i,
-        });
-      }
-      for (let i = col; i < col + length; i++) {
-        player.invalidCoords.push({
-          row: row + 1,
-          col: i,
-        });
-      }
-    }
-
-  }
+ 
   placeRandomly(length: number, player: Player | Computer) {
     let randCol: number;
     let randRow: number;
@@ -234,24 +141,34 @@ export class GameBoardControllerService {
     } while (
       randCol + length > 10 ||
       randRow + length > 10 ||
-      player.invalidCoords.find(
-        (pos) =>
-          (pos.row === randRow && pos.col === randCol) ||
-          (pos.row === randRow && pos.col === randCol + length-1)||
-          (pos.col === randCol && pos.row === randRow + length-1) 
-      ) !== undefined ||
+      this.spotTaken(randRow, randCol, length, !!randOrientation, player) ||
       i <= 250
     );
     player.gameboard.placeShip(randRow, randCol, length, !!randOrientation);
-    let ship = player.gameboard.ships[player.gameboard.ships.length - 1];
-    this.addInvalidSpots(randRow, randCol, length, ship.position.vertical, player);
     function randNumbers() {
       randOrientation = Math.round(Math.random());
       randRow = Math.floor(Math.random() * 10);
       randCol = Math.floor(Math.random() * 10);
     }
   }
-
+ spotTaken(row, col, length,vertical, player) {
+   let result = [];
+    if(vertical) {
+      for(let i = row - 1; i<= row+length; i++) {
+        result.push(this.isAShip(i, col, player));
+        result.push(this.isAShip(i, col - 1, player));
+        result.push(this.isAShip(i, col + 1, player));
+      }
+    }
+    else if( ! vertical) {
+      for(let i = col - 1; i<= col+length; i++) {
+        result.push(this.isAShip(row, i, player));
+        result.push(this.isAShip(row - 1, i, player));
+        result.push(this.isAShip(row + 1, i, player));
+      }
+    }
+    return result.includes(true);
+ }
   randomPlace(player: Player | Computer) {
     this.placeRandomly(4, player);
     this.placeRandomly(3, player);
@@ -276,8 +193,6 @@ export class GameBoardControllerService {
     this.turn = 0;
     this.gameOver = false;
     this.winner = '';
-    this.comp.invalidCoords = [];
-    this.player.invalidCoords = [];
     this.randomPlace(this.comp);
     
   }

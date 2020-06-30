@@ -61,7 +61,6 @@ export class ShipsComponent implements OnInit {
   onRandom() {
     if(this.service.player.gameboard.ships.length !== 0) {
       this.service.player.gameboard.ships = [];
-      this.service.player.invalidCoords = [];
     }
     this.service.randomPlace(this.service.player);
   }

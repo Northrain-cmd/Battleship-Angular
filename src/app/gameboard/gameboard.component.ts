@@ -25,16 +25,15 @@ export class GameboardComponent implements OnInit, DoCheck {
     let row: number = +event.currentTarget.dataset.index;
     let col: number = +event.target.dataset.index;
     let length: number = +event.dataTransfer.getData('text');
-    console.log(this.vertical)
     if(
-        (this.vertical &&
-        !this.controller.isAShip(row, col, this.player) &&
-        row + length <= 10 ) ||
-        (!this.vertical &&
-        !this.controller.isAShip(row, col, this.player) &&
-        col + length <= 10
-      )
-    ) {
+      (this.vertical &&
+      ! this.controller.spotTaken(row,col, length, true, this.player) &&
+      row + length <= 10 ) ||
+      (!this.vertical &&
+      ! this.controller.spotTaken(row,col, length, false, this.player) &&
+      col + length <= 10
+    )
+  ) {
       this.controller.player.gameboard.placeShip(
         row,
         col,
@@ -57,10 +56,10 @@ export class GameboardComponent implements OnInit, DoCheck {
         let length: number = this.placeOnClick.length;
         if(
           (this.vertical &&
-          !this.controller.isAShip(row, col, this.player) &&
+          ! this.controller.spotTaken(row,col, length, true, this.player) &&
           row + length <= 10 ) ||
           (!this.vertical &&
-          !this.controller.isAShip(row, col, this.player) &&
+          ! this.controller.spotTaken(row,col, length, false, this.player) &&
           col + length <= 10
         )
       ) {

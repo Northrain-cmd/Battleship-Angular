@@ -15,8 +15,8 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgba($color: #000000, $alpha: 0.3);
-    min-height: 31px;
-    min-width: 40px;
+    min-height: 32px;
+    min-width: 42px;
 }
 .start{
     user-select: none;
@@ -43,6 +43,13 @@
     margin-top: 0.7%;
     margin-bottom: 1%;
     margin-left: 5%;
+}
+.destroyers .sub-ships .cell{
+    height: 100%;
+    width: 100%;
+}
+.destroyers .ship-obj{
+    height: 32px;
 }
 #rotate{
     font-size: 1.5em;
@@ -121,8 +128,8 @@ h3{
         width: 65%;
     }
     .destroyers{
-        height: 100%;
         .ship-obj{
+            flex-direction: column;
             margin-right: 3%;
         }
         justify-content: space-around;
